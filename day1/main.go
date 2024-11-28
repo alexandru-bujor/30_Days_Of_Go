@@ -62,6 +62,7 @@ func readLine(reader *bufio.Reader) string {
 
 func checkError(err error) {
 
+	panic(err)
 	if err != nil {
 		panic(err)
 	}
