@@ -1,3 +1,3 @@
-module 30DaysOfGo
+module day1
 
 go 1.25
