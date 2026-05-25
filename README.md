@@ -1,6 +1,6 @@
 # <img src="https://openmoji.org/data/color/svg/E04D.svg" width="80" style="vertical-align: middle;" /> 30 Days of Go <img src="https://openmoji.org/data/color/svg/E04D.svg" width="80" style="vertical-align: middle;" />
 
-A public repository dedicated to consistent Go practice, daily progress tracking, and structured problem-solving.
+A 30-day Go practice repository following the [Learning_Go](https://github.com/nahomderese/Learning_Go) curriculum, covering backend development with Golang, the GIN framework, and MongoDB.
 
 ---
 
@@ -29,10 +29,34 @@ Everything is tracked openly here on **GitHub**, making progress visible and eas
 
 ---
 
-## 👤 **Author**
+## 📚 **Tasks**
 
-Developed by **Bujor Alexandru**  
-Group: **FAF-231**
+### 🔜 Task 1: Student Grade Calculator
+A console application that prompts a student to enter their name, the number of subjects, and a grade for each subject. It then displays the student's name, individual subject grades, and calculated average. Covers variables, conditionals, loops, maps, and functions in Go.
 
 ---
 
+### ❌ Task 2: Fundamentals of Go
+
+**Sub Task 1: Word Frequency Count**
+A Go function that takes a string and returns a map of word frequencies. Words are treated case-insensitively and punctuation is ignored. Includes unit tests.
+
+**Sub Task 2: Palindrome Check**
+A Go function that takes a string and determines whether it is a palindrome, ignoring spaces, punctuation, and capitalization. Includes unit tests.
+
+---
+
+### ❌ Task 3: Library Management System
+A console-based library management system demonstrating the use of structs, interfaces, methods, slices, and maps. Supports adding, removing, borrowing, and returning books, as well as listing all available books. Focuses on clean code structure, error handling, and documentation.
+
+---
+
+### ❌ Task 4: Task Management REST API
+A REST API built with Go and the Gin framework supporting full CRUD operations for managing tasks. Uses an in-memory database for storage. Covers REST endpoint design, HTTP methods, response codes, input validation, error handling, and API documentation.
+
+---
+
+## 👤 **Author**
+
+Developed by **Bujor Alexandru**
+Group: **FAF-231**
