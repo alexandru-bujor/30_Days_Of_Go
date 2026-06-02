@@ -2,69 +2,71 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"strconv"
 	"strings"
 )
 
-/*
- * Complete the 'aVeryBigSum' function below.
- *
- * The function is expected to return a LONG_INTEGER.
- * The function accepts LONG_INTEGER_ARRAY ar as parameter.
- */
+type Student struct {
+	Name         string     `json:"name"`
+	NrOfSubjects int        `json:"nrOfSubjects"`
+	EachSubject  []subjects `json:"eachSubject"`
+	Average      float64    `json:"average"`
+}
 
-func aVeryBigSum(ar []int64) int64 {
-	// Write your code here
-
+type subjects struct {
+	Name  string  `json:"name"`
+	Grade float64 `json:"grade"`
 }
 
 func main() {
-	reader := bufio.NewReaderSize(os.Stdin, 16*1024*1024)
+	reader := bufio.NewReader(os.Stdin)
+	var studentul Student
+	var total float64
 
-	stdout, err := os.Create(os.Getenv("OUTPUT_PATH"))
-	checkError(err)
+	file, _ := os.Create("data/output.json")
 
-	defer stdout.Close()
+	defer file.Close()
+	fmt.Print("Enter your name: ")
+	name, _ := reader.ReadString('\n')
+	studentul.Name = strings.TrimSpace(name)
 
-	writer := bufio.NewWriterSize(stdout, 16*1024*1024)
+	fmt.Print("Hello, %s!\n", name, ", please insert the number of subjects:")
+	nrSub, _ := reader.ReadString('\n')
+	nrSub = strings.TrimSpace(nrSub)
+	studentul.NrOfSubjects, _ = strconv.Atoi(nrSub)
 
-	arCount, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-	checkError(err)
+	fmt.Print("You have ", nrSub, " subjects.")
 
-	arTemp := strings.Split(strings.TrimSpace(readLine(reader)), " ")
+	for i := 1; i <= studentul.NrOfSubjects; i++ {
+		var sub subjects
+		fmt.Print("Enter the ", i, " subject name: ")
+		name, _ := reader.ReadString('\n')
+		sub.Name = strings.TrimSpace(name)
 
-	var ar []int64
+		fmt.Print("Enter the ", name, " grade: ")
+		grade, _ := reader.ReadString('\n')
+		sub.Grade, _ = strconv.ParseFloat(strings.TrimSpace(grade), 64)
+		total += sub.Grade
 
-	for i := 0; i < int(arCount); i++ {
-		arItem, err := strconv.ParseInt(arTemp[i], 10, 64)
-		checkError(err)
-		ar = append(ar, arItem)
+		studentul.EachSubject = append(studentul.EachSubject, sub)
 	}
 
-	result := aVeryBigSum(ar)
+	studentul.Average = total / float64(studentul.NrOfSubjects)
 
-	fmt.Fprintf(writer, "%d\n", result)
+	b, _ := json.Marshal(studentul)
 
-	writer.Flush()
-}
-
-func readLine(reader *bufio.Reader) string {
-	str, _, err := reader.ReadLine()
-	if err == io.EOF {
-		return ""
-
-	}
-
-	return strings.TrimRight(string(str), "\r\n")
-}
-
-func checkError(err error) {
-
-	panic(err)
+	encoder := json.NewEncoder(file)
+	err := encoder.Encode(studentul)
 	if err != nil {
-		panic(err)
+		fmt.Println("Error encoding JSON:", err)
+		return
 	}
+
+	fmt.Print("Media:", total/float64(studentul.NrOfSubjects))
+
+	fmt.Print(string(b))
+
 }
